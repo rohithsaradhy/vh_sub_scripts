@@ -56,14 +56,26 @@ folder_comment=$(get_json_val_withoutr ".common.folder_comment")
 
 
 
+
+
 era="UL18"
-procTypeToDo=(bkg data sig)
+# procTypeToDo=(bkg data sig)
+procTypeToDo=(sig)
+echo '$$$$$$$$$$$$$$$$$$$$$$'
+echo 'ERA:   '$era
+echo 'procs: '${procTypeToDo[@]}
+echo '$$$$$$$$$$$$$$$$$$$$$$'
 
 
+echo '$$$$$$$$$$$$$$$$$$$$$$'
 #copy this file to the folder for reference...
-echo cp submit_jobs.sh $settings_file $eosDir/$folder_name/$era
+echo mkdir -p "$eosDir/$folder_name/$era" #remove echo
+cp submit_jobs.sh $settings_file $eosDir/$folder_name/$era
+echo $era @ $(date) '$folder_comment \n' >> $eosDir/$folder_name/$era/status.log ## remove echo & ""
+echo '$$$$$$$$$$$$$$$$$$$$$$'
+exit
 
-echo "echo $era said: '$folder_comment \n' >> $eosDir/$folder_name/status.log" ## remove echo & ""
+
 for json_name in $(get_json_val ".$era.json_list|keys[]"); do
     json_folder=$(get_json_val ".$era.json_folder")
     proctype=$(get_json_val ".$era.json_list.$json_name")
