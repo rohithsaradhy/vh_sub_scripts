@@ -30,15 +30,16 @@ function fggRun()
     dumper=$6
     nEvents=$7
     additional_cmd=$8
+    nohup_output_file=$9.txt
     
-    echo fggRunJobs.py --load $json \
+    nohup fggRunJobs.py --load $json \
               -d $outdir \
               --stage-to $eos_dir \
               -n $batch_size \
               -q $queue \
               --no-copy-proxy \
               --make-light-tarball \
-              -x cmsRun $dumper maxEvents=$nEvents copyInputMicroAOD=True $additional_cmd &
+              -x cmsRun $dumper maxEvents=$nEvents copyInputMicroAOD=True $additional_cmd > $nohup_output_file &
 }
 ################################################
 ############### END OF FUNCTIONS ###############
@@ -52,7 +53,7 @@ nEvents=$(get_json_val ".common.nEvents")
 additionalSettings=$(get_json_val ".common.additionalSettings")
 eosDir=$(get_json_val ".common.eosDir")
 afsDir=$(get_json_val ".common.afsDir")
-folder_comment=$(get_json_val_withoutr ".common.folder_comment")
+folder_comment=$(get_json_val ".common.folder_comment")
 
 
 
@@ -67,13 +68,13 @@ echo 'procs: '${procTypeToDo[@]}
 echo '$$$$$$$$$$$$$$$$$$$$$$'
 
 
-echo '$$$$$$$$$$$$$$$$$$$$$$'
 #copy this file to the folder for reference...
-echo mkdir -p "$eosDir/$folder_name/$era" #remove echo
+echo "Copying settings file & submit_jobs"
+mkdir -p "$eosDir/$folder_name/$era" #remove echo
 cp submit_jobs.sh $settings_file $eosDir/$folder_name/$era
-echo $era @ $(date) '$folder_comment \n' >> $eosDir/$folder_name/$era/status.log ## remove echo & ""
+echo $(date)  "::" $era "["${procTypeToDo[@]}"]"  "-->" $folder_comment >> $eosDir/$folder_name/$era/status.log 
+echo $(date)  ":: Submitting from $(hostname) "  >> $eosDir/$folder_name/$era/status.log 
 echo '$$$$$$$$$$$$$$$$$$$$$$'
-exit
 
 
 for json_name in $(get_json_val ".$era.json_list|keys[]"); do
@@ -85,19 +86,21 @@ for json_name in $(get_json_val ".$era.json_list|keys[]"); do
     output_folderName=$(get_json_val ".$era.$proctype.output_folderName")
 
     writeFolder=$eosDir/$folder_name/$era/raw/$output_folderName
-    localFolder=$afsDir/$folder_name/$era/$output_folderName
+    localFolder=$afsDir/$folder_name/$era/$json_name
     
     #if proctype in procTypeToDo, execute
     if printf '%s\0' "${procTypeToDo[@]}" | grep -qwz $proctype
     then
         
         #make the folder...
-        echo mkdir -p $writeFolder #remove echo
-        echo mkdir -p $localFolder #remove echo
-        echo  $json_file : $proctype
+        mkdir -p $writeFolder #remove echo
+        mkdir -p $localFolder #remove echo
+        # echo  $json_file : $proctype
+        echo $(date)  ":: Submitting ($proctype) " $json_file "" >> $eosDir/$folder_name/$era/status.log 
+        echo "Submitting jobs for " $json_file
 
-        fggRun $json_file $localFolder $writeFolder $job_num $queue $dumper $nEvents "$additionalSettings"
-        break
+        nohup_file=$afsDir/$folder_name/$era/"nohup_output_$json_name"
+        fggRun $json_file $localFolder $writeFolder $job_num $queue $dumper $nEvents "$additionalSettings" $nohup_file
 
     # else
     #     echo $json_file : $proctype Skipped
