@@ -1,7 +1,7 @@
 {
     "common":{
         "folder_name":"2023_07_27_NoSys_v0_XS1_BDTv3",
-        "nEvents":"-1",
+        "nEvents":"100",
         "dumper":"../vhLepAC_Dumper.py",
         "additionalSettings":"dumpTrees=1 dumpWorkspace=0 doPdfWeights=False doSystematics=False doStageOne=True disableJEC=False doZHLep=True doWHLep=False VHdumpAllVars=True",
         "eosDir":"/eos/user/r/rsaradhy/vh_anomalous",
@@ -16,7 +16,7 @@
         "sig":{
             "jobNum":"100",
             "queue":"workday",
-            "output_folderName":"data"
+            "output_folderName":"sig"
         },
         "data":{
             "jobNum":"500",
@@ -53,7 +53,7 @@
         "sig":{
             "jobNum":"100",
             "queue":"workday",
-            "output_folderName":"data"
+            "output_folderName":"sig"
         },
         "data":{
             "jobNum":"500",
@@ -91,7 +91,7 @@
         "sig":{
             "jobNum":"100",
             "queue":"workday",
-            "output_folderName":"data"
+            "output_folderName":"sig"
         },
         "data":{
             "jobNum":"500",
@@ -127,7 +127,7 @@
         "sig":{
             "jobNum":"100",
             "queue":"workday",
-            "output_folderName":"data"
+            "output_folderName":"sig"
         },
         "data":{
             "jobNum":"500",
