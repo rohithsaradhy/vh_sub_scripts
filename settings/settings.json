@@ -1,13 +1,12 @@
 {
     "common":{
-        "folder_name":"2023_08_01_NoSys_v0_XS1_BDTv3",
+        "folder_name":"2023_08_12_WH_NoSys_v0_XS1_BDTv3",
         "nEvents":"-1",
         "dumper":"/afs/cern.ch/work/r/rsaradhy/vh_anomalous/workspace_UL/CMSSW_10_6_29/src/flashgg/Systematics/test/vhLepAC_Dumper.py",
-        "additionalSettings":"--nCondorCpu=5 dumpTrees=1 dumpWorkspace=0 doPdfWeights=False doSystematics=False doStageOne=True disableJEC=False doZHLep=True doWHLep=False VHdumpAllVars=True ",
+        "additionalSettings":"--nCondorCpu=5 dumpTrees=1 dumpWorkspace=0 doPdfWeights=False doSystematics=False doStageOne=True disableJEC=False doZHLep=False doWHLep=True VHdumpAllVars=True ",
         "eosDir":"/eos/user/r/rsaradhy/vh_anomalous",
-        "afsDir":"/afs/cern.ch/work/r/rsaradhy/vh_anomalous/workspace_UL/CMSSW_10_6_29/src/vh_sub_scripts/vh_submission_log",
-        "folder_comment":"Full Run"
-
+        "afsDir":"./vh_submission_log",
+        "folder_comment":"Full Run II for WH with submission fixes"
     },
 
 
@@ -15,19 +14,27 @@
     "UL18":{
         "sig":{
             "jobNum":"100",
-            "queue":"workday",
+            "queue":"testmatch",
             "output_folderName":"sig"
         },
+
         "data":{
             "jobNum":"500",
-            "queue":"tomorrow",
+            "queue":"testmatch",
             "output_folderName":"data"
         },
         "bkg":{
             "jobNum":"500",
-            "queue":"tomorrow",
+            "queue":"testmatch",
             "output_folderName":"bkg"
         },
+
+        "test":{
+            "jobNum":"500",
+            "queue":"testmatch",
+            "output_folderName":"test"
+        },
+
 
         "json_folder":"ul18_json",
         "json_list":{
@@ -52,17 +59,22 @@
     "UL17":{
         "sig":{
             "jobNum":"100",
-            "queue":"workday",
+            "queue":"testmatch",
             "output_folderName":"sig"
         },
         "data":{
             "jobNum":"500",
-            "queue":"tomorrow",
+            "queue":"testmatch",
             "output_folderName":"data"
         },
         "bkg":{
             "jobNum":"500",
-            "queue":"tomorrow",
+            "queue":"testmatch",
+            "output_folderName":"bkg"
+        },
+        "test":{
+            "jobNum":"500",
+            "queue":"testmatch",
             "output_folderName":"bkg"
         },
 
@@ -90,17 +102,17 @@
     "UL16post":{
         "sig":{
             "jobNum":"100",
-            "queue":"workday",
+            "queue":"testmatch",
             "output_folderName":"sig"
         },
         "data":{
             "jobNum":"500",
-            "queue":"tomorrow",
+            "queue":"testmatch",
             "output_folderName":"data"
         },
         "bkg":{
             "jobNum":"500",
-            "queue":"tomorrow",
+            "queue":"testmatch",
             "output_folderName":"bkg"
         },
 
@@ -126,17 +138,17 @@
     "UL16pre":{
         "sig":{
             "jobNum":"100",
-            "queue":"workday",
+            "queue":"testmatch",
             "output_folderName":"sig"
         },
         "data":{
             "jobNum":"500",
-            "queue":"tomorrow",
+            "queue":"testmatch",
             "output_folderName":"data"
         },
         "bkg":{
             "jobNum":"500",
-            "queue":"tomorrow",
+            "queue":"testmatch",
             "output_folderName":"bkg"
         },
 
@@ -161,7 +173,4 @@
             "UL_runII_v1_2016preVFP"    : "data"
         }
     }
-    
-    
-
 }
