@@ -1,1 +1,5 @@
 vh_submission_log/
+_submit_jobs.sh
+settings/settings_bkp.json
+copy_ntuples.sh
+test_sub/
